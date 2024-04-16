@@ -1,0 +1,1 @@
+Malloc funciona, função busca funciona, relatórios funcionam e o print do array completo também ocorre normalmente.

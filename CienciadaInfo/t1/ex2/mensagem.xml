@@ -1,0 +1,10 @@
+<mensagens>
+    <mensagem>
+        <texto>Toca a bola Ferreira!</texto>
+        <dataHora envio="2023-13-04T11:21:27"></dataHora>
+        <status>lida</status>
+        <tipo>texto</tipo>
+        <usuarioRemetente codigo="2"></usuarioRemetente>
+        <usuarioDestinatario codigo="1"></usuarioDestinatario>
+    </mensagem>
+</mensagens>

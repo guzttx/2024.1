@@ -1,0 +1,41 @@
+<!--Exercicio 1-->
+<chamadas>
+    <chamada>
+        <detalhesChamador>
+            <nome>Aldemir Ferreira</nome>
+            <telefone>55939467222</telefone>
+            <departamento>Vendas</departamento>
+        </detalhesChamador>
+        <detalhesChamada>
+            <tipo>incidente</tipo>
+            <dataHora>2023-07-04T14:54:27</dataHora>
+            <protocolo>1782001</protocolo>
+        </detalhesChamada>
+        <detalhesLocal>
+            <local>sala 11</local>
+            <ramal>1110</ramal>
+        </detalhesLocal>
+        <detalhesProblema>
+            <tipo>software</tipo>
+        </detalhesProblema>
+    </chamada>
+    <chamada>
+        <detalhesChamador>
+            <nome>Reinaldo</nome>
+            <telefone>55999345678</telefone>
+            <departamento>Defesa</departamento>
+        </detalhesChamador>
+        <detalhesChamada>
+            <tipo>Consulta</tipo>
+            <dataHora>2024-09-04T09:42:36</dataHora>
+            <protocolo>1242</protocolo>
+        </detalhesChamada>
+        <detalhesLocal>
+            <local>sala 6</local>
+            <ramal>0606</ramal>
+        </detalhesLocal>
+        <detalhesProblema>
+            <tipo>rede</tipo>
+        </detalhesProblema>
+    </chamada>
+</chamadas>

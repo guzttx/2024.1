@@ -1,0 +1,7 @@
+<usuarios>
+    <usuario codigo="2">
+        <nome>Reinaldo</nome>
+        <telefone>55999345678</telefone>
+        <fotoPerfil>kingnaldo.jpg</fotoPerfil>
+    </usuario>
+</usuarios>

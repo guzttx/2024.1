@@ -1,0 +1,31 @@
+<participantes>
+    <participante codigo="1">
+        <nome>Aldemir Ferreira</nome>
+        <telefone>55939467222</telefone>
+        <fotoPerfil>ciscadinha.jpg</fotoPerfil>
+    </participante>
+    <participante codigo="2">
+        <nome>Reinaldo</nome>
+        <telefone>55999345678</telefone>
+        <fotoPerfil>kingnaldo.jpg</fotoPerfil>
+    </participante>
+</participantes>
+<mensagens>
+    <mensagem>
+        <texto>Toca a bola Ferreira!</texto>
+        <dataHora envio="2024-13-04T11:21:27"></dataHora>
+        <status>lida</status>
+        <tipo>texto</tipo>
+        <usuarioDestinatario codigo="1"></usuarioDestinatario>
+    </mensagem>
+    <mensagem>
+        <texto>Futebola eh correria, se fosse pra pensar o mundo tinha formato de caderno e nao de bola</texto>
+        <dataHora envio="2024-13-04T11:22:01"></dataHora>
+        <status>lida</status>
+        <tipo>texto</tipo>
+        <usuarioDestinatario codigo="2"></usuarioDestinatario>
+    </mensagem>
+</mensagens>
+<nome>Ala Esquerda 2023</nome>
+<notificacoes>desativadas</notificacoes>
+<!-- Path: 2024.1/CienciadaInfo/t1/chamadas.xml -->
