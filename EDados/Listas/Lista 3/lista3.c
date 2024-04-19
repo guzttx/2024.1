@@ -86,6 +86,14 @@ int ultimo(list* lista)
     return pointer->info;
 }
 
+list* concat_list(list* lista1, list* lista2)
+{
+    list* pointer;
+    for(pointer = lista1; pointer -> next != NULL; pointer = pointer->next);
+    pointer->next = lista2;
+    return lista1;
+}
+
 int main()
 {
     list* lista = cria_lista();
@@ -114,6 +122,21 @@ int main()
 
     int last = ultimo(lista);
     printf("\n O ultimo numero da lista eh %d", last);
+
+    list* lista2 = cria_lista();
+    
+    do
+    {
+        printf("\nDigite um numero a ser inserido na segunda lista ou digite -1 para sair: ");
+        scanf("%d", &n);
+        if (n != -1)
+        {
+            lista2 = insert_list(lista2, n);
+        }
+    } while (n != -1);
+
+    lista = concat_list(lista, lista2);
+    imprime_lista(lista);
 
     return 0;
 }
