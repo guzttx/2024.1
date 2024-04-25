@@ -204,7 +204,7 @@ int main()
     emission n2;
 
     fill_n1(&n1);
-    //fill_n2(&n2);
+    fill_n2(&n2);
 
     printf("Digite o numero de produtos a serem inseridos: ");
     scanf("%d", &numero_produtos);
