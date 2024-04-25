@@ -92,6 +92,8 @@ list* concat_list(list* lista1, list* lista2)
     for(pointer = lista1; pointer -> next != NULL; pointer = pointer->next);
     pointer->next = lista2;
     return lista1;
+    //Faz um for que percorre a lista1 até o último elemento(quando pointer->next == null) 
+    //e faz o ponteiro do último elemento apontar para o primeiro elemento da lista2
 }
 
 int main()
@@ -121,7 +123,7 @@ int main()
     printf("\nExistem %d numeros maiores que %d na lista", greater, numero);
 
     int last = ultimo(lista);
-    printf("\n O ultimo numero da lista eh %d", last);
+    printf("\nO ultimo numero da lista eh %d", last);
 
     list* lista2 = cria_lista();
     
