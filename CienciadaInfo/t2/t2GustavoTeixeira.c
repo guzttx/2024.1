@@ -1,4 +1,4 @@
-/*  Trabalho 2 Introducao a Ciencia da Informacao - Gustavo Teixeira*/
+/*Trabalho 2 Introducao a Ciencia da Informacao - Gustavo Teixeira - Leonardo Balk*/
 
 #include <stdio.h>
 #include <stdlib.h>
