@@ -220,4 +220,6 @@ int main()
     print_itens(itens, numero_produtos);
     print_ctt(&ctt);
     printf("SE*%d\n", nota.numero_nota);
+
+    return 0;
 }
