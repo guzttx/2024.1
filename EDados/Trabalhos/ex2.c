@@ -108,6 +108,36 @@ void print_listamatriz(Esparsa *matriz)
     }
 }
 
+void line_sum(Esparsa *matriz, int line)
+{
+    List *pointer;
+    int sum = 0;
+
+    for(pointer = matriz->prim; pointer != NULL; pointer = pointer->prox)
+    {
+        if(pointer->linha == line)
+        {
+            sum += pointer->info;
+        }
+    }
+
+    printf("Somatorio da linha %d: %d\n\n", line, sum);
+}
+
+void percent_not_null(Esparsa *matriz)
+{
+    List *pointer;
+    int count = 0;
+
+    for(pointer = matriz->prim; pointer != NULL; pointer = pointer->prox)
+    {
+        count++;
+    }
+
+    float percent = ((float)count / (matriz->linhas * matriz->colunas)) * 100;
+    printf("Percentual de elementos nao nulos: %.2f%%\n", percent);
+}
+
 int main()
 {
     Esparsa *matriz;
@@ -123,7 +153,7 @@ int main()
 
     matriz_insertno(matriz);
 
-    int option;
+    int option, line;
     do
     {
         printf("Escolha uma opcao:\n");
@@ -143,16 +173,21 @@ int main()
                 //consulta de um determinado elemento da matriz
                 break;
             case 3:
-                //impressão de somatório de uma linha i
+                printf("Informe a linha para somatorio:\n");
+                scanf("%d", &line);
+                if(line >= 0 && line < matriz->linhas)
+                    line_sum(matriz, line);
+                else
+                    printf("Linha invalida\n\n");
                 break;
             case 4:
-                //percentual de elementos não nulos na matriz lida
+                percent_not_null(matriz);
                 break;
             case 5:
-                printf("Saindo do programa\n");
+                printf("\nSaindo do programa!\n");
                 break;
             default:
-                printf("Opcao invalida\n");
+                printf("\nOpcao invalida\n");
                 break;
         }
     } while(option != 5);
