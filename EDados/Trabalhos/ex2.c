@@ -170,7 +170,7 @@ int main()
                 print_listamatriz(matriz);
                 break;
             case 2:
-                //consulta de um determinado elemento da matriz
+                
                 break;
             case 3:
                 printf("Informe a linha para somatorio:\n");
