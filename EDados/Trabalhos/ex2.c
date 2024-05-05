@@ -41,11 +41,6 @@ Esparsa* create_matrix(int rows, int cols)
     }
     matriz->linhas = rows;
     matriz->colunas = cols;
-    if(matriz->linhas <= 0 || matriz->colunas <= 0)
-    {
-        printf("Matriz invalida\n");
-        exit(1);
-    }
     matriz->prim = NULL;
 
     return matriz;
@@ -69,21 +64,18 @@ void matriz_insertno(Esparsa* matriz)
                     printf("Erro ao alocar no\n");
                     exit(1);
                 }
-                if(matriz->prim == NULL)    //    insercao do primeiro elemento no inicio da lista
+                novo->linha = i;
+                novo->coluna = j;
+                novo->info = valor;
+                if(matriz->prim == NULL)   
                 {
-                    novo->linha = i;
-                    novo->coluna = j;
-                    novo->info = valor;
                     novo->prox = matriz->prim;
                     matriz->prim = novo;
                 }
                 else
                 {
-                    List* aux;      //  insercao dos demais elementos no final da lista
+                    List* aux;   
                     for(aux = matriz->prim; aux->prox != NULL; aux = aux->prox);
-                    novo->linha = i;
-                    novo->coluna = j;
-                    novo->info = valor;
                     novo->prox = NULL;
                     aux->prox = novo;
                 }
@@ -182,8 +174,16 @@ int main()
     printf("Digite o numero de colunas da matriz: ");
     scanf("%d", &cols);
 
-    matriz = create_matrix(rows, cols);
-
+    if (rows <= 0 || cols <= 0)
+    {
+        printf("Valores invalidos\n");
+        exit(1);
+    }
+    else
+    {
+        matriz = create_matrix(rows, cols);
+    }
+    
     matriz_insertno(matriz);
 
     int option, row, column;
