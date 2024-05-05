@@ -138,6 +138,39 @@ void percent_not_null(Esparsa *matriz)
     printf("Percentual de elementos nao nulos: %.2f%%\n", percent);
 }
 
+void search_element(Esparsa *matriz, int line, int column)
+{
+    List *pointer;
+    int found = 0;
+
+    for(pointer = matriz->prim; pointer != NULL; pointer = pointer->prox)
+    {
+        if(pointer->linha == line && pointer->coluna == column)
+        {
+            printf("Elemento encontrado: %d\n", pointer->info);
+            found = 1;
+            break;
+        }
+    }
+
+    if(!found)
+    {
+        printf("Elemento encontrado: 0\n");
+    }
+}
+
+void free_matrix(Esparsa *matriz)
+{
+    List *pointer, *aux;
+
+    for(pointer = matriz->prim; pointer != NULL; pointer = aux)
+    {
+        aux = pointer->prox;
+        free(pointer);
+    }
+    free(matriz);
+}
+
 int main()
 {
     Esparsa *matriz;
@@ -153,7 +186,7 @@ int main()
 
     matriz_insertno(matriz);
 
-    int option, line;
+    int option, row, column;
     do
     {
         printf("Escolha uma opcao:\n");
@@ -170,13 +203,20 @@ int main()
                 print_listamatriz(matriz);
                 break;
             case 2:
-                
+                printf("Informe a linha para consulta:\n");
+                scanf("%d", &row);
+                printf("Informe a coluna para consulta:\n");
+                scanf("%d", &column);
+                if(row >= 0 && row < matriz->linhas && column >= 0 && column < matriz->colunas)
+                    search_element(matriz, row, column);
+                else
+                    printf("Elemento invalido\n\n");
                 break;
             case 3:
                 printf("Informe a linha para somatorio:\n");
                 scanf("%d", &line);
-                if(line >= 0 && line < matriz->linhas)
-                    line_sum(matriz, line);
+                if(row >= 0 && row < matriz->linhas)
+                    line_sum(matriz, row);
                 else
                     printf("Linha invalida\n\n");
                 break;
@@ -190,7 +230,9 @@ int main()
                 printf("\nOpcao invalida\n");
                 break;
         }
-    } while(option != 5);
+    }   while(option != 5);
+
+    free_matrix(matriz);
 
     return 0;
 }
