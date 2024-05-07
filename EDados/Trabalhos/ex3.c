@@ -13,7 +13,6 @@ termos de armazenamento. Não aloque espaços desnecessários.*/
 #include<stdio.h>
 #include<stdlib.h>
 
-
 struct diferente
 {
     int linha;
@@ -151,6 +150,34 @@ void print_matrix(Diagonal *matriz)
         for(pointer = matriz->first; pointer != NULL; pointer = pointer->next);
         printf("(%d, %d): %d",pointer->linha, pointer->coluna, pointer->valor);
         printf("A matriz eh:\n");
+
+        int i, j;
+        pointer = matriz->first;
+
+        for(i=0; i < matriz->ordem; i++)
+        {
+            for(j=0; j < matriz->ordem; j++)
+            {
+                if(pointer != NULL && pointer->linha == i && pointer->coluna == j)
+                {
+                    printf("%d\t", pointer->valor);
+                    pointer = pointer->next;
+                }
+                else
+                {
+                    if(i == j)
+                    {
+                        printf("1\t");
+                    }
+                    else
+                    {
+                        printf("0\t");
+                    }
+                }
+            }
+            printf("\n");
+        }
+
     }
 }
 
