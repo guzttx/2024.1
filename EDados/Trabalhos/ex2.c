@@ -90,13 +90,33 @@ void print_listamatriz(Esparsa *matriz)
 
     printf("Numero de linhas: %d\n", matriz->linhas);
     printf("Numero de colunas: %d\n", matriz->colunas);
-    printf("Elementos da matriz Esparsa:\n");
+    printf("Elementos da nao nulos da matriz Esparsa:\n");
 
     for(pointer = matriz->prim; pointer != NULL; pointer = pointer->prox)
     {
         printf("L:%d\t", pointer->linha);
         printf("C:%d\t", pointer->coluna);
         printf("V:%d\n", pointer->info);
+    }
+    printf("\n");
+
+    printf("Matriz Esparsa:\n");
+    pointer = matriz->prim;
+    for(int i = 0; i < matriz->linhas; i++)
+    {
+        for(int j = 0; j < matriz->colunas; j++)
+        {
+            if(pointer != NULL && pointer->linha == i && pointer->coluna == j)
+            {
+                printf("%d\t", pointer->info);
+                pointer = pointer->prox;
+            }
+            else
+            {
+                printf("0\t");
+            }
+        }
+        printf("\n");
     }
 }
 
@@ -130,16 +150,16 @@ void percent_not_null(Esparsa *matriz)
     printf("Percentual de elementos nao nulos: %.2f%%\n", percent);
 }
 
-void search_element(Esparsa *matriz, int line, int column)
+void search_element(Esparsa *matriz, int row, int column)
 {
     List *pointer;
     int found = 0;
 
     for(pointer = matriz->prim; pointer != NULL; pointer = pointer->prox)
     {
-        if(pointer->linha == line && pointer->coluna == column)
+        if(pointer->linha == row && pointer->coluna == column)
         {
-            printf("Elemento encontrado: %d\n", pointer->info);
+            printf("Elemento encontrado, (%d, %d): %d\n", row, column, pointer->info);
             found = 1;
             break;
         }
@@ -147,8 +167,10 @@ void search_element(Esparsa *matriz, int line, int column)
 
     if(!found)
     {
-        printf("Elemento encontrado: 0\n");
+        printf("Elemento encontrado, (%d, %d): 0\n", row, column);
     }
+    
+    printf("\n");
 }
 
 void free_matrix(Esparsa *matriz)
@@ -189,12 +211,12 @@ int main()
     int option, row, column;
     do
     {
-        printf("Escolha uma opcao:\n");
-        printf("1 - Imprimir matriz\n");
-        printf("2 - Consultar um elemento da matriz\n");
-        printf("3 - Imprimir somatorio de uma linha i\n");
-        printf("4 - Imprimir percentual de elementos nao nulos na matriz\n");
-        printf("5 - Sair\n");
+        printf("Escolha uma opcao;\n");
+        printf("1 - Imprimir matriz;\n");
+        printf("2 - Consultar um elemento da matriz;\n");
+        printf("3 - Imprimir somatorio de uma linha;\n");
+        printf("4 - Imprimir percentual de elementos nao nulos na matriz;\n");
+        printf("5 - Sair.\n");
         scanf("%d", &option);
         
         switch(option)
@@ -203,17 +225,17 @@ int main()
                 print_listamatriz(matriz);
                 break;
             case 2:
-                printf("Informe a linha para consulta:\n");
+                printf("Informe a linha para consulta (de 0 a %d): ", matriz->linhas - 1);
                 scanf("%d", &row);
-                printf("Informe a coluna para consulta:\n");
+                printf("Informe a coluna para consulta (de 0 a %d): ", matriz->colunas - 1);
                 scanf("%d", &column);
-                if(row >= 0 && row - 1 < matriz->linhas && column >= 0 && column - 1 < matriz->colunas)
+                if(row >= 0 && row < matriz->linhas && column >= 0 && column < matriz->colunas)
                     search_element(matriz, row, column);
                 else
                     printf("Elemento invalido\n\n");
                 break;
             case 3:
-                printf("Informe a linha para somatorio:\n");
+                printf("Informe a linha para somatorio (de 0 a %d): ", matriz->linhas - 1);
                 scanf("%d", &row);
                 if(row >= 0 && row < matriz->linhas)
                     line_sum(matriz, row);
