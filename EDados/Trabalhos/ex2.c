@@ -53,7 +53,7 @@ void matriz_insertno(Esparsa* matriz)
     {
         for(j = 0; j < matriz->colunas; j++)
         {
-            printf("Informe o valor para a posicao (%d, %d):\n", i, j);
+            printf("Informe o valor para a posicao (%d, %d): ", i, j);
             scanf("%d", &valor);
 
             if(valor != 0)
@@ -207,14 +207,14 @@ int main()
                 scanf("%d", &row);
                 printf("Informe a coluna para consulta:\n");
                 scanf("%d", &column);
-                if(row >= 0 && row < matriz->linhas && column >= 0 && column < matriz->colunas)
+                if(row >= 0 && row - 1 < matriz->linhas && column >= 0 && column - 1 < matriz->colunas)
                     search_element(matriz, row, column);
                 else
                     printf("Elemento invalido\n\n");
                 break;
             case 3:
                 printf("Informe a linha para somatorio:\n");
-                scanf("%d", &line);
+                scanf("%d", &row);
                 if(row >= 0 && row < matriz->linhas)
                     line_sum(matriz, row);
                 else

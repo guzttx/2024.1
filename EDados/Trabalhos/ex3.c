@@ -10,6 +10,7 @@ O programa deve contemplar as operações de:
 Proponha  uma  definição  para  a  struct  que  representa  a  matriz  identidade,  usando  listas,  de  uma  forma  otimizada  em 
 termos de armazenamento. Não aloque espaços desnecessários.*/
 
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -48,17 +49,16 @@ void insert_diagonal(Diagonal *matriz, Elemento* diferente, int numero, int coor
     diferente->linha = coordenada;
     diferente->coluna = coordenada;
     diferente->valor = numero;
+    diferente->next = NULL;
 
     if(matriz->first == NULL)
     {
-        diferente->next = matriz->first;
         matriz->first = diferente;
     }
     else
     {
         Elemento *aux;
-        for(aux = matriz->first; aux->next != NULL; aux = aux->next)
-        diferente->next = NULL;
+        for(aux = matriz->first; aux->next != NULL; aux = aux->next);
         aux->next = diferente;
     }
 }
@@ -68,17 +68,16 @@ void insert_randompos(Diagonal *matriz, Elemento* diferente, int numero, int row
     diferente->linha = row;
     diferente->coluna = col;
     diferente->valor = numero;
+    diferente->next = NULL;
 
     if(matriz->first == NULL)
     {
-        diferente->next = matriz->first;
         matriz->first = diferente;
     }
     else
     {
         Elemento *aux;
-        for(aux = matriz->first; aux->next != NULL; aux = aux->next)
-        diferente->next = NULL;
+        for(aux = matriz->first; aux->next != NULL; aux = aux->next);
         aux->next = diferente;
     }
 }
@@ -92,7 +91,7 @@ void insert_elements(Diagonal *matriz)
     {
         for (j=0; j<matriz->ordem; j++)
         {
-            printf("Digite o valor da posicao: (%d, %d)", i, j);
+            printf("Digite o valor da posicao (%d, %d): ", i, j);
             scanf("%d", &numero);
             if(i == j && numero != 1)
             {
@@ -125,10 +124,11 @@ void print_matrix(Diagonal *matriz)
     if(matriz->first == NULL)
     {
         int i, j;
-        printf("A matriz identidade eh:\n");
-        for (i=0; i < matriz->ordem, i++;)
+        printf("A matriz eh identidade e eh representada:\n");
+        
+        for (i = 0; i < matriz->ordem; i++)
         {
-            for(j=0; j < matriz->ordem, j++)
+            for(j = 0; j < matriz->ordem; j++)
             {
                 if(i==j)
                 {
@@ -145,10 +145,13 @@ void print_matrix(Diagonal *matriz)
 
     else
     {
+        printf("A matriz nao eh identidade.\n");
         printf("Os elementos que nao estao de acordo com a matriz identidade sao:\n");
         Elemento *pointer;
-        for(pointer = matriz->first; pointer != NULL; pointer = pointer->next);
-        printf("(%d, %d): %d",pointer->linha, pointer->coluna, pointer->valor);
+        for(pointer = matriz->first; pointer != NULL; pointer = pointer->next)
+        {
+            printf("(%d, %d): %d\n",pointer->linha, pointer->coluna, pointer->valor);
+        }
         printf("A matriz eh:\n");
 
         int i, j;
@@ -177,29 +180,19 @@ void print_matrix(Diagonal *matriz)
             }
             printf("\n");
         }
-
     }
 }
 
 int main()
 {
+    Diagonal *matriz;
     int ordem;
     printf("Digite a ordem da matriz: ");
     scanf("%d", &ordem);
 
-    Diagonal *matriz = create_matrix(ordem);
+    matriz = create_matrix(ordem);
 
     insert_elements(matriz);
-
-    if(matriz->first == NULL)
-    {
-        printf("A matriz eh identidade.\n");
-    }
-    else
-    {
-        printf("A matriz nao eh identidade.\n");
-    }
-
     print_matrix(matriz);
 
     return 0;
