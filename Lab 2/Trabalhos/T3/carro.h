@@ -1,3 +1,6 @@
+#ifndef CARRO_H
+#define CARRO_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,3 +27,5 @@ typedef struct lista_veiculos Veiculos;
 Veiculos* add_carro(Veiculos *lista_veiculos);
 
 void print_listaveiculos(Veiculos *lista_veiculos);
+
+#endif

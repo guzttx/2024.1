@@ -1,3 +1,6 @@
+#ifndef LOCACAO_H
+#define LOCACAO_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,3 +22,5 @@ struct lista_locacoes
     struct lista_locacoes *prox;
 };
 typedef struct lista_locacoes Locacoes;
+
+#endif
