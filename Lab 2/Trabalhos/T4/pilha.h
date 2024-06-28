@@ -1,23 +1,31 @@
-#ifndef PILHA_H
-#define PILHA_H
+#ifndef __PILHAH_INCLUDED__
+#define __PILHAH_INCLUDED__
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "aluno.h"
+
 
 struct bandeja
 {
     int codigo;
     struct bandeja *prox;
-};  typedef struct bandeja Pilha;
+};  
+typedef struct bandeja Bandeja;
+
+struct pilha
+{
+    Bandeja *topo;
+}; 
+typedef struct pilha Pilha;
 
 
 Pilha *cria_pilha();
 
-void push(Pilha *p, int codigo);
+Bandeja *aloca_bandeja();
 
-int pop(Pilha *p);
+void adiciona_bandejas(Pilha *p);
+
+int remove_bandeja(Pilha *p);
 
 int pilha_vazia(Pilha *p);
 

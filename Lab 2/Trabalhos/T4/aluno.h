@@ -1,19 +1,33 @@
-#ifndef ALUNO_h
-#define ALUNO_h
+#ifndef __ALUNOH_INCLUDED__
+#define __ALUNOH_INCLUDED__
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "fila.h"
 
-struct dados_aluno
+struct aluno
 {
-    char primeiro_nome[15];
-    char matricula[10];
+    char ticket[10];
     int prioritario;
-    struct dados_aluno *prox;
+    struct aluno *prox;
+    int codigo_bandeja;
 };
-typedef struct dados_aluno Aluno;
+typedef struct aluno Aluno;
 
-Aluno* aloca_aluno();
+struct refeitorio
+{
+    struct aluno *prox;
+};
+typedef struct refeitorio Refeitorio;
+
+Refeitorio* cria_refeitorio();
+
+Aluno* aloca_aluno(int prioritario);
+
+Refeitorio* senta_refeitorio(Aluno *a, Refeitorio *r);
+
+Refeitorio* libera_refeitorio(Refeitorio *r);
+
+void imprime_refeitorio(Refeitorio *r);
 
 #endif
