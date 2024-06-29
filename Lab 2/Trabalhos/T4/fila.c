@@ -2,96 +2,150 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fila.h"
-#include "aluno.h"
 
-Fila *cria_fila()
+Fila* cria_fila()
 {
-    Fila *f = (Fila*)malloc(sizeof(Fila));
-    if(f == NULL)
+    Fila *fila = (Fila*)malloc(sizeof(Fila));
+    if(fila == NULL)
     {
         printf("Erro na alocacao de memoria");
         exit(1);
     }
-    f->inicio = NULL;
-    f->fim = NULL;
-    return f;
+    fila->inicio = NULL;
+    fila->fim = NULL;
+    return fila;
 }
 
-Fila insere_fila(Fila *f, int prioridade)
+int fila_vazia(Fila *fila)
 {
-    Aluno *novo = aloca_aluno(prioridade);
-    if(f->inicio == NULL)
+    if(fila->inicio == NULL)
     {
-        f->inicio = novo;
-        f->fim = novo;
+        return 1;
+    }
+    return 0;
+}
+
+Aluno* aloca_aluno()
+{
+    Aluno *novo = (Aluno*)malloc(sizeof(Aluno));
+    if(novo == NULL)
+    {
+        printf("Erro na alocacao de memoria");
+        exit(1);
+    }
+    novo->prox = NULL;
+    return novo;
+}
+
+Fila* insere_fila(Fila *fila)
+{
+    Aluno *novo = aloca_aluno();
+    printf("Digite o ticket do aluno: ");
+    fflush(stdin);
+    fgets(novo->ticket, 11, stdin);
+    novo->ticket[strcspn(novo->ticket, "\n")] = '\0';
+
+    novo->codigo_bandeja = 0;
+    if(fila_vazia(fila) == 1)
+    {
+        fila->inicio = novo;
+        fila->fim = novo;
     }
     else
     {
-        f->fim->prox = novo;
-        f->fim = novo;
+        Aluno* aux = fila->fim;
+        aux->prox = novo;
+        fila->fim = novo;
     }
-    return *f;
+    return fila;
 }
 
-/*Fila *tira_fila(Fila *f, Refeitorio *r)
+Fila* juntafila(Fila *fila_geral, Fila *fila)
 {
-    if(f->inicio == NULL)
+    if(fila_vazia(fila) == 1)
     {
-        printf("Fila vazia\n");
-        return NULL;
+        return fila_geral;
     }
-    Aluno *aux = f->inicio;
-    senta_refeitorio(aux, r);
-    f->inicio = aux->prox;
-    free(aux);
-    return f;
-}*/
 
-Aluno *tira_fila(Fila *f)
-{
-    if(f->inicio == NULL)
-    {
-        printf("Fila vazia\n");
-        return NULL;
-    }
-    Aluno *aux = f->inicio;
-    f->inicio = aux->prox;
-    return aux;
-}
-
-Fila* concatenar_filas(Fila *fila1, Fila *fila2)
-{
-    if(fila1->inicio == NULL)
-    {
-        return fila2;
-    }
-    if(fila2->inicio == NULL)
-    {
-        return fila1;
-    }
-    fila1->fim->prox = fila2->inicio;
-    fila1->fim = fila2->fim;
-    return fila1;
-}
-
-void imprime_fila(Fila *f)
-{
-    Aluno *aux = f->inicio;
+    Aluno *aux = fila->inicio;
     while(aux != NULL)
     {
-        printf("Aluno %s\n", aux->ticket);
+        Aluno *novo = aloca_aluno();
+        strcpy(novo->ticket, aux->ticket);
+        novo->codigo_bandeja = aux->codigo_bandeja;
+
+        if(fila_vazia(fila_geral))
+        {
+            fila_geral->inicio = novo;
+            fila_geral->fim = novo;
+        }
+        else
+        {
+            fila_geral->fim->prox = novo;
+            fila_geral->fim = novo;
+        }
+
         aux = aux->prox;
     }
+
+    return fila_geral;
 }
 
-void free_fila(Fila *f)
+int checa_bandeja(Aluno *aluno)
 {
-    Aluno *aux = f->inicio;
+    if(aluno->codigo_bandeja == 0)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+Fila* remove_aluno(Fila *fila)
+{
+    if(fila_vazia(fila) == 1)
+    {
+        printf("Fila vazia\n");
+        return fila;
+    }
+    Aluno *aux = fila->inicio;
+    if(checa_bandeja(aux) == 0)
+    {
+        printf("Aluno nao pode ser retirado, ainda nao tem bandeja\n\n");
+        return fila;
+    }
+    else
+    {
+        fila->inicio = aux->prox;
+        printf("Aluno %s saiu da fila, com a bandeja %d\n", aux->ticket, aux->codigo_bandeja);
+        free(aux);
+        return fila;
+    }
+}
+
+
+void imprime_fila(Fila *fila)
+{
+    if(fila_vazia(fila) == 1)
+    {
+        printf("Fila vazia\n\n");
+        return;
+    }
+    Aluno *aux;
+    for(aux = fila->inicio; aux != NULL; aux = aux->prox)
+    {
+        printf("Ticket: %s\n", aux->ticket);
+    }
+}
+
+void liberar_fila(Fila *fila)
+{
+    Aluno *aux = fila->inicio;
     while(aux != NULL)
     {
-        Aluno *temp = aux->prox;
-        free(aux);
-        aux = temp;
+        Aluno *liberado = aux;
+        aux = aux->prox;
+        free(liberado);
     }
-    free(f);
+    fila->inicio = NULL;
+    fila->fim = NULL;
 }

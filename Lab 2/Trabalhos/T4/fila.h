@@ -1,10 +1,16 @@
 #ifndef __FILAH_INCLUDED__
 #define __FILAH_INCLUDED__
 
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "aluno.h"
+
+struct aluno
+{
+    char ticket[11];
+    struct aluno *prox;
+    int codigo_bandeja;
+};
+typedef struct aluno Aluno;
 
 struct fila 
 {
@@ -13,16 +19,22 @@ struct fila
 };
 typedef struct fila Fila;
 
-Fila *cria_fila();
+Fila* cria_fila();
 
-Fila insere_fila(Fila *f, int prioridade);
+Fila* insere_fila(Fila *fila);
 
-struct aluno *tira_fila(Fila *f);
+Aluno* aloca_aluno();
 
-Fila* concatenar_filas(Fila *f1, Fila *f2);
+Fila* remove_aluno(Fila *fila);
 
-void imprime_fila(Fila *f);
+Fila* juntafila(Fila *fila_geral, Fila *fila);
 
-void free_fila(Fila *f);
+int checa_bandeja(Aluno *aluno);
+
+int fila_vazia(Fila *fila);
+
+void imprime_fila(Fila *fila);
+
+void liberar_fila(Fila *fila);
 
 #endif
