@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "fila.h"
 
 
 struct bandeja
@@ -23,15 +24,13 @@ Pilha *cria_pilha();
 
 Bandeja *aloca_bandeja();
 
-void adiciona_bandejas(Pilha *p);
+void* adiciona_bandejas(Pilha *pilha);
 
-int remove_bandeja(Pilha *p);
+int retira_bandeja(Pilha *pilha, Fila* fila);
 
-int pilha_vazia(Pilha *p);
+int pilha_vazia(Pilha *pilha);
 
-void libera_pilha(Pilha *p);
-
-void imprime_pilha(Pilha *p);
+void imprime_pilha(Pilha *pilha);
 
 
 #endif

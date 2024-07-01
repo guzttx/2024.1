@@ -2,20 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pilha.h"
+#include "fila.h"
 
-Pilha *cria_pilha()
+Pilha* cria_pilha()
 {
-    Pilha *p = (Pilha*)malloc(sizeof(Pilha));
-    if(p == NULL)
+    Pilha *pilha = (Pilha*)malloc(sizeof(Pilha));
+    if(pilha == NULL)
     {
         printf("Erro na alocacao de memoria");
         exit(1);
     }
-    p->topo = NULL;
-    return p;
+    pilha->topo = NULL;
+    return pilha;
 }
 
-Bandeja *aloca_bandeja()
+Bandeja* aloca_bandeja()
 {
     Bandeja *novo = (Bandeja*)malloc(sizeof(Bandeja));
     if(novo == NULL)
@@ -28,70 +29,73 @@ Bandeja *aloca_bandeja()
     return novo;
 }
 
-void adiciona_bandejas(Pilha *p)
+int pilha_vazia(Pilha *pilha)
 {
-    int cont = 10;
-    Bandeja *aux = p;
-    for(aux = p->topo; aux->prox != NULL; aux = aux->prox)
-    {
-        cont--;
-    }
-
-    if(cont == 0)
-    {
-        printf("Pilha cheia\n");
-        return;
-    }
-
-    for(int i = 0; i < cont; i++)
-    {
-        Bandeja *novo = aloca_bandeja();
-        novo->prox = p->topo;
-        p->topo = novo;
-    }
-}
-
-int remove_bandeja(Pilha *p)
-{
-    if(pilha_vazia(p) == 1)
-    {
-        printf("Pilha vazia\n");
-        return -1;
-    }
-    int codigo;
-    Bandeja *aux = p->topo;
-    p->topo = aux->prox;
-    codigo = aux->codigo;
-    free(aux);
-    return codigo;
-}
-
-int pilha_vazia(Pilha *p)
-{
-    if(p->topo == NULL)
+    if(pilha->topo == NULL)
     {
         return 1;
     }
+    return 0;
 }
 
-void libera_pilha(Pilha *p)
+void* adiciona_bandejas(Pilha *pilha)
 {
-    Bandeja *aux = p->topo;
-    while(aux != NULL)
+    int cont = 0;
+    Bandeja *novo;
+    for(novo = pilha->topo; novo != NULL; novo = novo->prox)
     {
-        Bandeja *temp = aux->prox;
-        free(aux);
-        aux = temp;
+        cont++;
     }
-    free(p);
+
+    if(cont >= 15)
+    {
+        printf("Pilha cheia\n");
+    }
+
+    else
+    {
+        for(int i = 0; i < 15 - cont; i++)
+        {
+            Bandeja *novo = aloca_bandeja();
+            novo->prox = pilha->topo;
+            pilha->topo = novo;
+        }
+    }
 }
 
-void imprime_pilha(Pilha *p)
+int retira_bandeja(Pilha *pilha, Fila *fila_geral)
 {
-    Bandeja *aux = p->topo;
-    while(aux != NULL)
+    if(checa_bandeja(fila_geral->inicio) == 1)
     {
-        printf("Codigo da bandeja: %d\n", aux->codigo);
-        aux = aux->prox;
+        printf("Aluno ja tem bandeja\n");
+        return fila_geral->inicio->codigo_bandeja;
+    }
+    int codigo;
+    if(pilha_vazia(pilha) == 1)
+    {
+        printf("Pilha vazia\n");
+        return 0;
+    }
+    Bandeja *aux = pilha->topo;
+    codigo = aux->codigo;
+    pilha->topo = aux->prox;
+    free(aux);
+    fila_geral->inicio->codigo_bandeja = codigo;
+    return codigo;
+}
+
+void imprime_pilha(Pilha *pilha)
+{
+    if(pilha_vazia(pilha) == 1)
+    {
+        printf("Pilha vazia\n\n");
+    }
+    else
+    {
+        Bandeja *aux;
+        for(aux = pilha->topo; aux != NULL; aux = aux->prox)
+        {
+            printf("Codigo da bandeja: %d\n", aux->codigo);
+        }
     }
 }
